@@ -1,5 +1,5 @@
 import {all, takeLatest, call, put} from 'redux-saga/effects';
-import api from '../../../servives/api';
+import api from '../../../services/api';
 import {signInSuccess, signFailure} from './actions';
 // import history from '~/services/history';
 import {Alert} from 'react-native';
@@ -12,23 +12,25 @@ export function* signIn({payload}) {
       email,
       password,
     });
+
     const {token, user} = res.data;
 
-    // sessionStorage.setItem('token', token);
-
-    if (user.provider) {
+    if (user.provider !== false) {
       Alert.alert(
         'Erro no login',
         'Usuário não pode ser prestador de serviços',
       );
       return;
     }
+
+    api.defaults.headers.Authorization = `bearer ${token}`;
     yield put(signInSuccess(token, user));
+
     // api.defaults.headers.Authorization = `bearer ${sessionStorage.getItem(
     //   'token',
     // )}`;
   } catch (e) {
-    Alert.alert('Erro no login', 'Verifique seus dados de autenticação');
+    Alert.alert('Erro no login', 'Verifique seus dados ou a conexão');
     yield put(signFailure());
   }
   //   history.push('dashboard');

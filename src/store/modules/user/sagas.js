@@ -1,12 +1,12 @@
 import {all, takeLatest, call, put} from 'redux-saga/effects';
-import api from '../../../servives/api';
+import api from '../../../services/api';
 import {updateProfileSuccess, updateProfileFailure} from './actions';
 import {Alert} from 'react-native';
 
 export function* updateProfile({payload}) {
   const {name, email, avatar_id, ...rest} = payload.data;
 
-  //This to concacanate 2 objs , if requisition brings passwords proccess change
+  //This to concacanate 2 objs , if requisition brings passwords to init proccess to modify
   const profile = Object.assign(
     {name, email, avatar_id},
     rest.oldPassword ? {...rest} : {},
