@@ -1,7 +1,7 @@
-import React, {forwardRef} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {ActivityIndicator, Text} from 'react-native';
-import {Container} from './styles';
+import {ActivityIndicator} from 'react-native';
+import {Container, Text} from './styles';
 
 function Button({children, loading, ...rest}) {
   return (

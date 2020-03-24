@@ -16,10 +16,12 @@ export function* signIn({payload}) {
     const {token, user} = res.data;
 
     if (user.provider !== false) {
+      yield put(signFailure());
       Alert.alert(
         'Erro no login',
         'Usuário não pode ser prestador de serviços',
       );
+
       return;
     }
 
@@ -30,8 +32,8 @@ export function* signIn({payload}) {
     //   'token',
     // )}`;
   } catch (e) {
-    Alert.alert('Erro no login', 'Verifique seus dados ou a conexão');
     yield put(signFailure());
+    Alert.alert('Erro no login', 'Verifique seus dados ou a conexão');
   }
   //   history.push('dashboard');
   return;
