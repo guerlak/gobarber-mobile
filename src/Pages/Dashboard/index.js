@@ -6,23 +6,43 @@ import Appointment from '../../components/Appointment';
 import api from '../../services/api';
 
 export default function Dashboard() {
+  const [appointments, setAppointments] = useState([]);
   const token = useSelector(state => state.auth.token);
 
   api.defaults.headers.Authorization = `bearer ${token}`;
 
-  const [appointments, setAppointments] = useState([]);
+  async function handleCancel(id) {
+    try {
+      const res = await api.delete(`appointments/${id}`);
+      console.tron.log(res);
+
+      setAppointments(
+        appointments.map(a => {
+          return a.id === id
+            ? {
+                ...a,
+                canceled_at: res.data.canceled_at,
+              }
+            : a;
+        }),
+      );
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
 
   useEffect(() => {
     async function loadAppointments() {
       try {
-        const {data} = await api.get('/appointments');
+        const {data} = await api.get('appointments');
         setAppointments(data);
+        console.tron.log(data);
       } catch (e) {
         console.tron.log(e.message);
       }
     }
     loadAppointments();
-  });
+  }, []);
 
   return (
     <Background>
@@ -31,8 +51,10 @@ export default function Dashboard() {
 
         <List
           data={appointments}
-          keyExtractor={item => String(item)}
-          renderItem={({item}) => <Appointment data={item} />}
+          keyExtractor={item => String(item.id)}
+          renderItem={({item}) => (
+            <Appointment data={item} onCancel={() => handleCancel(item.id)} />
+          )}
         />
       </Container>
     </Background>

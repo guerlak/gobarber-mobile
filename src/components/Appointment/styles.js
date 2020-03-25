@@ -5,6 +5,7 @@ export const Container = styled.View`
   padding: 20px;
   border-radius: 4px;
   background: #fff;
+  opacity: ${props => (props.past ? 0.6 : 1)}
 
   display: flex;
   flex-direction: row;
@@ -25,12 +26,12 @@ export const Info = styled.View`
   margin-left: 15px;
 `;
 export const Time = styled.Text`
-  font-weight: bold;
   font-size: 14px;
-  color: #333;
+  color: #999;
 `;
 export const Name = styled.Text`
-  color: #999;
+  font-weight: bold;
+  color: #333;
   font-size: 13px;
   margin-top: 4px;
 `;
