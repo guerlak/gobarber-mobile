@@ -5,6 +5,10 @@ import {useSelector} from 'react-redux';
 import SignIn from './Pages/SignIn';
 import SigUp from './Pages/SignUp';
 import Dashboard from './Pages/Dashboard';
+import SelectProvider from './Pages/New/SelectProvider';
+import SelectDate from './Pages/New/SelectDate';
+import Confirm from './Pages/New/Confirm';
+
 import Profile from './Pages/Profile';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -15,11 +19,34 @@ const Tab = createBottomTabNavigator();
 export default function Routes() {
   const {signed} = useSelector(state => state.auth);
 
+  function New({route}) {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="SelectProvider"
+          component={SelectProvider}
+          options={SelectProvider.navigationOptions}
+        />
+        <Stack.Screen
+          name="SelectDate"
+          component={SelectDate}
+          options={SelectDate.navigationOptions}
+        />
+        <Stack.Screen
+          name="Confirm"
+          component={Confirm}
+          options={Confirm.navigationOptions}
+        />
+      </Stack.Navigator>
+    );
+  }
+
   return (
     <NavigationContainer>
       {!signed ? (
         <Stack.Navigator headerMode="none">
-          <Stack.Screen headerMode={'none'} name="SignIn" component={SignIn} />
+          <Stack.Screen name="SignIn" component={SignIn} />
+          signed
           <Stack.Screen name="SignUp" component={SigUp} />
         </Stack.Navigator>
       ) : (
@@ -37,7 +64,6 @@ export default function Routes() {
           }}>
           <Tab.Screen
             name="Dashboard"
-            ffflygu7
             component={Dashboard}
             options={{
               tabBarLabel: 'Agendamentos',
@@ -47,8 +73,18 @@ export default function Routes() {
             }}
           />
           <Tab.Screen
+            name="New"
+            component={New}
+            options={{
+              tabBarLabel: 'Agendar',
+              tabBarIcon: ({color, size}) => (
+                <Icon name="add-circle-outline" color={color} size={size} />
+              ),
+              tabBarVisible: false,
+            }}
+          />
+          <Tab.Screen
             name="Profile"
-            ffflygu7
             component={Profile}
             options={{
               tabBarLabel: 'Perfil',

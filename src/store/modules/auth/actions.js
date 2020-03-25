@@ -33,6 +33,7 @@ export function signUpRequest(name, email, password) {
     },
   };
 }
+
 export function logout() {
   return {
     type: '@auth/LOGOUT',

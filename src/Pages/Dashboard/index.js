@@ -14,7 +14,6 @@ export default function Dashboard() {
   async function handleCancel(id) {
     try {
       const res = await api.delete(`appointments/${id}`);
-      console.tron.log(res);
 
       setAppointments(
         appointments.map(a => {
@@ -36,7 +35,6 @@ export default function Dashboard() {
       try {
         const {data} = await api.get('appointments');
         setAppointments(data);
-        console.tron.log(data);
       } catch (e) {
         console.tron.log(e.message);
       }
