@@ -21,7 +21,14 @@ export default function Routes() {
 
   function New({route}) {
     return (
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerTransparent: true,
+          headerLeftContainerStyle: {
+            marginLeft: 20,
+          },
+          headerTintColor: '#fff',
+        }}>
         <Stack.Screen
           name="SelectProvider"
           component={SelectProvider}

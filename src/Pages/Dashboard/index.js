@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
+import {Alert} from 'react-native';
 import Background from '../../components/Background';
 import {Container, Title, List} from './styles.js';
 import Appointment from '../../components/Appointment';
@@ -14,7 +15,6 @@ export default function Dashboard() {
   async function handleCancel(id) {
     try {
       const res = await api.delete(`appointments/${id}`);
-
       setAppointments(
         appointments.map(a => {
           return a.id === id
@@ -26,6 +26,9 @@ export default function Dashboard() {
         }),
       );
     } catch (e) {
+      if (e.message === 'Network Error') {
+        Alert('verifique interet');
+      }
       console.log(e.message);
     }
   }
