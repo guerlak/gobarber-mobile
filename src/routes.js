@@ -88,6 +88,7 @@ export default function Routes() {
                 <Icon name="add-circle-outline" color={color} size={size} />
               ),
               tabBarVisible: false,
+              unmountOnBlur: true,
             }}
           />
           <Tab.Screen
