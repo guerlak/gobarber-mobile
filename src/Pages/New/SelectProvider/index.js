@@ -45,6 +45,7 @@ export default function SelectProvider({navigation}) {
 }
 
 SelectProvider.navigationOptions = ({navigation}) => ({
+  unmountOnBlur: true,
   title: 'Com quem vc quer marcar?',
   headerLeft: () => (
     <TouchableOpacity

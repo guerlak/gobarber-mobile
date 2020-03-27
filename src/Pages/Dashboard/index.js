@@ -5,8 +5,10 @@ import Background from '../../components/Background';
 import {Container, Title, List} from './styles.js';
 import Appointment from '../../components/Appointment';
 import api from '../../services/api';
+import {useIsFocused} from '@react-navigation/native';
 
-export default function Dashboard() {
+function Dashboard() {
+  const isFocused = useIsFocused();
   const [appointments, setAppointments] = useState([]);
   const token = useSelector(state => state.auth.token);
 
@@ -43,7 +45,7 @@ export default function Dashboard() {
       }
     }
     loadAppointments();
-  }, []);
+  }, [isFocused]);
 
   return (
     <Background>
@@ -61,3 +63,5 @@ export default function Dashboard() {
     </Background>
   );
 }
+
+export default Dashboard;
