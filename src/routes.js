@@ -19,7 +19,7 @@ const Tab = createBottomTabNavigator();
 export default function Routes() {
   const {signed} = useSelector(state => state.auth);
 
-  function New({route}) {
+  function New() {
     return (
       <Stack.Navigator
         screenOptions={{
@@ -53,7 +53,6 @@ export default function Routes() {
       {!signed ? (
         <Stack.Navigator headerMode="none">
           <Stack.Screen name="SignIn" component={SignIn} />
-          signed
           <Stack.Screen name="SignUp" component={SigUp} />
         </Stack.Navigator>
       ) : (

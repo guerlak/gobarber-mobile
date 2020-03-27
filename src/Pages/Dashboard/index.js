@@ -29,7 +29,7 @@ function Dashboard() {
       );
     } catch (e) {
       if (e.message === 'Network Error') {
-        Alert('verifique interet');
+        Alert.alert('Ocorreu um erro', 'Verifique internet');
       }
       console.log(e.message);
     }
@@ -39,6 +39,7 @@ function Dashboard() {
     async function loadAppointments() {
       try {
         const {data} = await api.get('appointments');
+        console.tron.log(data);
         setAppointments(data);
       } catch (e) {
         console.tron.log(e.message);
@@ -50,14 +51,15 @@ function Dashboard() {
   return (
     <Background>
       <Container>
-        <Title>Dashboard</Title>
-
+        <Title>Seus agendamentos</Title>
         <List
           data={appointments}
           keyExtractor={item => String(item.id)}
-          renderItem={({item}) => (
-            <Appointment data={item} onCancel={() => handleCancel(item.id)} />
-          )}
+          renderItem={({item}) =>
+            item.cancelable && (
+              <Appointment data={item} onCancel={() => handleCancel(item.id)} />
+            )
+          }
         />
       </Container>
     </Background>
